@@ -1,6 +1,8 @@
+// random.go.
+
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Copyright © 2019 by Vault Thirteen.
+// Copyright © 2019..2020 by Vault Thirteen.
 //
 // All rights reserved. No part of this publication may be reproduced,
 // distributed, or transmitted in any form or by any means, including
@@ -17,11 +19,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package random
-
 // Random Number Generator.
 
 // This Packages offers a convenient Generator of random Integer Numbers.
+
+package random
 
 import (
 	crand "crypto/rand"
@@ -42,11 +44,6 @@ func Uint(
 	max uint,
 ) (result uint, err error) {
 
-	var crandMax *big.Int
-	var crandRandomValue *big.Int
-	var offset uint
-	var ránge uint
-
 	// Fool Check.
 	if min >= max {
 		err = errors.New(ErrLimits)
@@ -54,8 +51,8 @@ func Uint(
 	}
 
 	// Preparation.
-	offset = min
-	ránge = max - min
+	var offset uint = min
+	var ránge uint = max - min
 
 	// Unfortunately, the 'big' Library does not accept unsigned Integer Values.
 	// Check the Limits.
@@ -63,9 +60,11 @@ func Uint(
 		err = errors.New(ErrOverflow)
 		return
 	}
+	var crandMax *big.Int
 	crandMax = big.NewInt(int64(ránge) + 1)
 
 	// Create a uniform random Value in [0; crandMax).
+	var crandRandomValue *big.Int
 	crandRandomValue, err = crand.Int(crand.Reader, crandMax)
 	if err != nil {
 		return
