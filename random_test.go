@@ -25,6 +25,8 @@ import (
 	"fmt"
 	"math"
 	"testing"
+
+	"github.com/vault-thirteen/tester"
 )
 
 func Test_Uint(t *testing.T) {
@@ -113,4 +115,30 @@ func Test_Uint(t *testing.T) {
 		countMax,
 		deviationDown,
 	)
+}
+
+func Test_GenerateRandomBytes(t *testing.T) {
+	var aTest = tester.New(t)
+	var err error
+	var bytes []byte
+
+	// Test.
+	for i := 0; i < 10000; i++ {
+		bytes, err = GenerateRandomBytes(i)
+		aTest.MustBeNoError(err)
+		aTest.MustBeEqual(len(bytes), i)
+	}
+}
+
+func Test_GenerateRandomBytesA1(t *testing.T) {
+	var aTest = tester.New(t)
+	var err error
+	var bytes []byte
+
+	// Test.
+	for i := 0; i < 10000; i++ {
+		bytes, err = GenerateRandomBytesA1(i)
+		aTest.MustBeNoError(err)
+		aTest.MustBeEqual(len(bytes), i)
+	}
 }

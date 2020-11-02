@@ -77,3 +77,33 @@ func Uint(
 	result = uint(crandRandomValue.Uint64()) + offset
 	return
 }
+
+func GenerateRandomBytes(
+	bytesCount int,
+) (bytes []byte, err error) {
+	bytes = make([]byte, bytesCount)
+	_, err = crand.Read(bytes)
+	if err != nil {
+		bytes = nil
+		return
+	}
+	return
+}
+
+func GenerateRandomBytesA1(
+	bytesCount int,
+) (bytes []byte, err error) {
+	var tmp = make([]byte, bytesCount*2)
+	_, err = crand.Read(tmp)
+	if err != nil {
+		return
+	}
+	bytes = make([]byte, bytesCount)
+	var i, j = 0, 0
+	for i < bytesCount {
+		bytes[i] = tmp[j]
+		i++
+		j += 2
+	}
+	return
+}
